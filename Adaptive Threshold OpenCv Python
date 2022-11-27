@@ -1,0 +1,17 @@
+import cv2
+import math
+
+def main(x):
+    img = cv2.imread(x, 0)
+    img = cv2.resize(img, (960, 540))
+    cv2.imshow('img', img)
+    #blur = cv2.GaussianBlur(img, (5,5),0)
+    h,w = img.shape[:2]
+    block_size = int(math.sqrt(h))
+    c = int(h / w)
+
+    thresh = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, block_size, c)
+
+    cv2.imshow(x, thresh)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
